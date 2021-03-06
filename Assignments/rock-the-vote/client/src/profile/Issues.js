@@ -1,8 +1,9 @@
 import React from "react"
 
-function Issues() {
+function Issues(props) {
+    const { issue } = props
     return (
-        <div>Issues</div>
+        <div>{issue}</div>
     )
 }
 
