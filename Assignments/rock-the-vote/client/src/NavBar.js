@@ -6,10 +6,12 @@ function NavBar() {
     const { logout } = useContext(AppContext)
     return (
         <div>
-            <Link to="/">Login</Link>
-            <Link to="userprofile">User Profile</Link>
-            <Link to="main">Main Page</Link>
-            <button onClick={logout}>Log Out</button>
+            <nav>
+                <Link className="appLinkText" to="/">Login</Link>
+                <Link className="appLinkText" to="userprofile">User Profile</Link>
+                <Link className="appLinkText" to="main">Main Page</Link>
+                <button onClick={logout}>Log Out</button>
+            </nav>
         </div>
     )
 }

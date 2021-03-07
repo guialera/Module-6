@@ -42,6 +42,7 @@ commentRoute.get("/:issueId", (req, res, next) => {
 
 commentRoute.post("/:issueId", (req, res, next) => {
     req.body.user = req.user._id,
+    req.body.username = req.user.username,
     issueId = { issueId: req.params.issueId }
     const newComment = new Comment(req.body)
     const addedId = Object.assign(newComment, issueId)

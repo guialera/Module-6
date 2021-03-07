@@ -29,7 +29,8 @@ issueRoute.get("/user", (req, res, next) => {
 //Post One
 
 issueRoute.post("/", (req, res, next) => {
-    req.body.user = req.user._id
+    req.body.user = req.user._id,
+    req.body.username = req.user.username
     const newIssue = new Issue(req.body)
     newIssue.save((err, issue) => {
         if (err) {

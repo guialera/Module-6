@@ -11,6 +11,11 @@ const commentSchema = new Schema({
         ref: "User",
         required: true
     },
+    username:{
+        type: String,
+        ref: "User",
+        required: true
+    },
     issueId: {
         type: String,
         required: true

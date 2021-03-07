@@ -36,6 +36,7 @@ function CommentsForm(props) {
                     value={input.comment}
                     onChange={fillIn}
                 />
+                <br/>
                 <button>Submit Comment</button>
             </form>
         </div>

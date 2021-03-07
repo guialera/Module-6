@@ -1,10 +1,10 @@
 import React from "react"
 
 function Comments(props) {
-    const { comment } = props
+    const { username, comment } = props
     return (
         <div>
-            {comment}
+            {`${username}: ${comment}`}
         </div>
     )
 }
