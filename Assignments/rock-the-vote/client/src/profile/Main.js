@@ -1,13 +1,19 @@
-import React, { useContext } from "react"
+import React, { useContext, useState } from "react"
 import { AppContext } from "../context/appContext.js"
 import Issues from "../profile/Issues.js"
 import IssuesForm from "../forms/IssuesForm.js"
 
 function Main() {
 
+    let initUser = ""
+
     const { allIssues, user } = useContext(AppContext)
 
-    let username = user.username
+    const [username, setUserName] = useState(initUser)
+
+    React.useEffect(() => {
+        (typeof(user) === "undefined" ? setUserName(initUser) : setUserName(user.username))
+    }, [])
 
     let sortedIssues = allIssues.sort((a, b) => b.votes - a.votes)
 
@@ -17,7 +23,7 @@ function Main() {
         <div>
             <h1>
                 {`What Are Your Pressing Issues ${username}!`}
-                <br/>
+                <br />
                 {`Join The Conversation Below!`}
             </h1>
             <div className="issuesForm">

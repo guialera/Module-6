@@ -36,12 +36,36 @@ h1{
     margin-left: auto;
     margin-right: auto;
     margin-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 15px;
+    height: auto;
+    width: 400px;
+}
+
+.userComments{
+    text-align: center;
+    font-size: 17px;
+    border-style: solid;
+    border-color: black;
+    background-color: navajowhite;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 15px;
     padding-bottom: 15px;
     height: auto;
     width: 400px;
 }
 
 .voteBtn{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.deleteCommentBtn{
     margin-left: auto;
     margin-right: auto;
 }

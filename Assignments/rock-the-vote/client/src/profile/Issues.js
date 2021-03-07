@@ -17,6 +17,7 @@ function Issues(props) {
                 <Comments
                     username={each.username}
                     comment={each.comment}
+                    _id={each._id}
                     key={each._id}
                 />
             )
@@ -42,9 +43,9 @@ function Issues(props) {
         voted.map(function (each) {
             if (each === user._id) {
                 setHasVoted(true)
-            } else if (each !== user._id) {
+            } /*else if (each !== user._id) {
                 setHasVoted(false)
-            }
+            }*/
         })
     }
 

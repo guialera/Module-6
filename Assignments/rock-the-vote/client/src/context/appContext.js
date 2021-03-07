@@ -22,11 +22,13 @@ export default function AppProvider(props) {
     const [allIssues, setAllIssues] = useState([])
     const [userIssues, setUserIssues] = useState([])
     const [allComments, setAllComments] = useState([])
+    const [commentsByUser, setCommentsByUser] = useState([])
 
     React.useEffect(() => {
         getAllIssues()
         getIssuesByUser()
         getAllComments()
+        getCommentsByUser()
     }, [])
 
     function signUp(credentials) {
@@ -53,6 +55,7 @@ export default function AppProvider(props) {
                 getAllIssues()
                 getIssuesByUser()
                 getAllComments()
+                getCommentsByUser()
                 setUser(prevUser => ({
                     ...prevUser,
                     user,
@@ -127,11 +130,29 @@ export default function AppProvider(props) {
             .catch(error => console.log(error))
     }
 
+    function getCommentsByUser() {
+        userAxios.get("/api/comments/user")
+            .then(response => {
+                setCommentsByUser(response.data)
+            })
+            .catch(error => console.log(error))
+    }
+
     function postCommentToIssue(newComment, issueId) {
         userAxios.post(`/api/comments/${issueId}`, newComment)
             .then(response => {
                 setAllComments(prevAllComments => ([...prevAllComments, response.data]))
                 getAllComments()
+                getCommentsByUser()
+            })
+            .catch(error => console.log(error))
+    }
+
+    function deleteCommentByUser(commentId) {
+        userAxios.delete(`/api/comments/${commentId}`)
+            .then(response => {
+                getAllComments()
+                getCommentsByUser()
             })
             .catch(error => console.log(error))
     }
@@ -149,6 +170,7 @@ export default function AppProvider(props) {
                 allIssues,
                 userIssues,
                 allComments,
+                commentsByUser,
                 signUp,
                 login,
                 logout,
@@ -156,7 +178,9 @@ export default function AppProvider(props) {
                 upvoteIssue,
                 downvoteIssue,
                 deleteIssue,
+                deleteCommentByUser,
                 getAllComments,
+                getCommentsByUser,
                 postCommentToIssue
             }}
         >
