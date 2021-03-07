@@ -2,7 +2,11 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
 const issueSchema = new Schema({
-    issue: {
+    title: {
+        type: String,
+        require: true
+    },
+    description: {
         type: String,
         require: true
     },

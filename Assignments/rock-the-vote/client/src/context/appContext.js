@@ -21,10 +21,12 @@ export default function AppProvider(props) {
     const [user, setUser] = useState(initState)
     const [allIssues, setAllIssues] = useState([])
     const [userIssues, setUserIssues] = useState([])
+    const [allComments, setAllComments] = useState([])
 
     React.useEffect(() => {
         getAllIssues()
         getIssuesByUser()
+        getAllComments()
     }, [])
 
     function signUp(credentials) {
@@ -50,6 +52,7 @@ export default function AppProvider(props) {
                 localStorage.setItem("user", JSON.stringify(user))
                 getAllIssues()
                 getIssuesByUser()
+                getAllComments()
                 setUser(prevUser => ({
                     ...prevUser,
                     user,
@@ -57,6 +60,15 @@ export default function AppProvider(props) {
                 }))
             })
             .catch(error => console.log(error))
+    }
+
+    function logout() {
+        localStorage.removeItem("user")
+        localStorage.removeItem("token")
+        setUser({
+            user: {},
+            token: ""
+        })
     }
 
     function getAllIssues() {
@@ -72,9 +84,54 @@ export default function AppProvider(props) {
 
     }
 
+    function postIssue(newIssue) {
+        userAxios.post("/api/issues/", newIssue)
+            .then(response => {
+                setAllIssues(prevAllIssues => ([...prevAllIssues, response.data]))
+                getIssuesByUser()
+            })
+            .catch(error => console.log(error))
+    }
+
+    function deleteIssue(issueId) {
+        userAxios.delete(`/api/issues/${issueId}`)
+            .then(response => {
+                setAllIssues(prevAllIssues => (prevAllIssues.filter(each => each._id !== issueId)))
+                getIssuesByUser()
+            })
+            .catch(error => console.log(error))
+    }
+
+    function getAllComments() {
+        userAxios.get("/api/comments/")
+            .then(response => setAllComments(response.data))
+            .catch(error => console.log(error))
+    }
+
+    function postCommentToIssue(newComment, issueId) {
+        userAxios.post(`/api/comments/${issueId}`, newComment)
+            .then(response => {
+                setAllComments(prevAllComments => ([...prevAllComments, response.data]))
+                getAllComments()
+            })
+            .catch(error => console.log(error))
+    }
+
     return (
         <AppContext.Provider
-            value={{ ...user, allIssues, userIssues, signUp, login }}
+            value={{
+                ...user,
+                allIssues,
+                userIssues,
+                allComments,
+                signUp,
+                login,
+                logout,
+                postIssue,
+                deleteIssue,
+                getAllComments,
+                postCommentToIssue
+            }}
         >
             {props.children}
         </AppContext.Provider>

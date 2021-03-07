@@ -1,8 +1,11 @@
 import React from "react"
 
-function Comments() {
+function Comments(props) {
+    const { comment } = props
     return (
-        <div>Comments</div>
+        <div>
+            {comment}
+        </div>
     )
 }
 
