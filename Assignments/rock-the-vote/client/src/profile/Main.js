@@ -9,7 +9,9 @@ function Main() {
 
     let username = user.username
 
-    let everyIssue = allIssues.map(each => <Issues {...each} key={each._id} />)
+    let sortedIssues = allIssues.sort((a, b) => b.votes - a.votes)
+
+    let everyIssue = sortedIssues.map(each => <Issues {...each} key={each._id} />)
 
     return (
         <div>

@@ -19,6 +19,13 @@ const issueSchema = new Schema({
         type: String,
         ref: "User",
         required: true
+    },
+    votes: {
+        type: Number,
+        default: 0
+    },
+    voted: {
+        type: Array
     }
 })
 

@@ -7,11 +7,17 @@ function UserProfile(props) {
 
     let username = user.username
 
-    let issues = userIssues.map(each => <Issues {...each} key={each._id} />)
+    let sortedIssues = userIssues.sort((a, b) => b.votes - a.votes)
+
+    let issues = sortedIssues.map(each => <Issues {...each} key={each._id} />)
 
     return (
         <div>
-            <h1>{`Welcome To Your Profile Page ${username}!`}</h1>
+            <h1>
+                {`Welcome To Your Profile Page ${username}!`}
+                <br/>
+                {`These Are Your Posts`}
+            </h1>
             {issues}
         </div>
     )

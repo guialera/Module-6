@@ -72,7 +72,7 @@ commentRoute.put("/:commentId", (req, res, next) => {
     )
 })
 
-//Delete Comment
+//Delete One Comment
 
 commentRoute.delete("/:commentId", (req, res, next) => {
     Comment.findOneAndDelete({ _id: req.params.commentId, user: req.user._id }, (err, deletedComment) => {
@@ -81,6 +81,18 @@ commentRoute.delete("/:commentId", (req, res, next) => {
             return next(err)
         }
         return res.status(200).send(deletedComment)
+    })
+})
+
+//Delete Comments By Issue
+
+commentRoute.delete("/issue/:issueId", (req, res, next) => {
+    Comment.deleteMany({ issueId: req.params.issueId }, (err, deletedComments) => {
+        if (err) {
+            res.status(500)
+            return next(err)
+        }
+        return res.status(200).send(deletedComments)
     })
 })
 

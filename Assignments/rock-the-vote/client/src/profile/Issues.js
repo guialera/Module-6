@@ -6,9 +6,10 @@ import CommentsForm from "../forms/CommentsForm.js"
 function Issues(props) {
     const [commentForm, setCommentForm] = useState(false)
     const [buttonsShow, setButtonsShow] = useState(true)
+    const [hasVoted, setHasVoted] = useState(false)
 
-    const { title, description, username, _id } = props
-    const { allComments, deleteIssue, user } = useContext(AppContext)
+    const { title, description, username, votes, voted, _id } = props
+    const { allComments, upvoteIssue, downvoteIssue, deleteIssue, user } = useContext(AppContext)
 
     let everyComment = allComments.map(function (each) {
         if (each.issueId === _id) {
@@ -24,7 +25,28 @@ function Issues(props) {
 
     React.useEffect(() => {
         showButtons()
+        checkVoted()
     }, [])
+
+    function upvote() {
+        upvoteIssue(_id)
+        setHasVoted(true)
+    }
+
+    function downvote() {
+        downvoteIssue(_id)
+        setHasVoted(false)
+    }
+
+    function checkVoted() {
+        voted.map(function (each) {
+            if (each === user._id) {
+                setHasVoted(true)
+            } else if (each !== user._id) {
+                setHasVoted(false)
+            }
+        })
+    }
 
     function deleteOneIssue(id) {
         deleteIssue(id)
@@ -37,7 +59,7 @@ function Issues(props) {
     function showButtons() {
         if (user.username === username) {
             setButtonsShow(true)
-        } else if (user.username !== username)  {
+        } else if (user.username !== username) {
             setButtonsShow(false)
         }
     }
@@ -45,8 +67,11 @@ function Issues(props) {
     return (
         <div className="singleIssueDiv">
             <p>{`Posted By: ${username}`}</p>
+            <p>{`Votes: ${votes}`}</p>
             <h2>{title}</h2>
             <p>{description}</p>
+            <button className="voteBtn" onClick={upvote} style={{ display: hasVoted ? "none" : "block" }}>Upvote Issue</button>
+            <button className="voteBtn" onClick={downvote} style={{ display: hasVoted ? "block" : "none" }}>Downvote Issue</button>
             <div style={{ display: buttonsShow ? "block" : "none" }}>
                 <button onClick={() => deleteOneIssue(_id)}>Delete</button>
                 <button>Edit</button>

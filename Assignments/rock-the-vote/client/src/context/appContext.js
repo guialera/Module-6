@@ -93,10 +93,29 @@ export default function AppProvider(props) {
             .catch(error => console.log(error))
     }
 
+    function upvoteIssue(issueId) {
+        userAxios.put(`/api/issues/upvote/${issueId}`)
+            .then(response => {
+                setAllIssues(prevAllIssues => prevAllIssues.map(each => each._id !== issueId ? each : response.data))
+                getAllIssues()
+                getIssuesByUser()
+            })
+    }
+
+    function downvoteIssue(issueId) {
+        userAxios.put(`/api/issues/downvote/${issueId}`)
+            .then(response => {
+                setAllIssues(prevAllIssues => prevAllIssues.map(each => each._id !== issueId ? each : response.data))
+                getAllIssues()
+                getIssuesByUser()
+            })
+    }
+
     function deleteIssue(issueId) {
         userAxios.delete(`/api/issues/${issueId}`)
             .then(response => {
                 setAllIssues(prevAllIssues => (prevAllIssues.filter(each => each._id !== issueId)))
+                deleteCommentsByIssue(issueId)
                 getIssuesByUser()
             })
             .catch(error => console.log(error))
@@ -117,6 +136,12 @@ export default function AppProvider(props) {
             .catch(error => console.log(error))
     }
 
+    function deleteCommentsByIssue(issueId) {
+        userAxios.delete(`/api/comments/issue/${issueId}`)
+            .then(response => console.log(response.data))
+            .catch(error => console.log(error))
+    }
+
     return (
         <AppContext.Provider
             value={{
@@ -128,6 +153,8 @@ export default function AppProvider(props) {
                 login,
                 logout,
                 postIssue,
+                upvoteIssue,
+                downvoteIssue,
                 deleteIssue,
                 getAllComments,
                 postCommentToIssue
