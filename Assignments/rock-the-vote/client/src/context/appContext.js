@@ -96,6 +96,13 @@ export default function AppProvider(props) {
             .catch(error => console.log(error))
     }
 
+    function updateIssue(issueId, updatedIssue) {
+        userAxios.put(`/api/issues/${issueId}`, updatedIssue)
+            .then(response => {
+                setAllIssues(prevAllIssues => prevAllIssues.map(each => each._id !== issueId ? each : response.data))
+            })
+    }
+
     function upvoteIssue(issueId) {
         userAxios.put(`/api/issues/upvote/${issueId}`)
             .then(response => {
@@ -175,6 +182,7 @@ export default function AppProvider(props) {
                 login,
                 logout,
                 postIssue,
+                updateIssue,
                 upvoteIssue,
                 downvoteIssue,
                 deleteIssue,
