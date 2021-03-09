@@ -18,12 +18,12 @@ function App(props) {
                 />
                 <Route
                     exact path="/userprofile"
-                    render={() => <UserProfile />}
+                    render={() => token ? <UserProfile /> : <Redirect to="/" />}
                 />
 
                 <Route
                     exact path="/main"
-                    render={() => <Main />}
+                    render={() => token ? <Main /> : <Redirect to="/" />}
                 />
             </Switch>
         </div>

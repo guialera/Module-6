@@ -18,7 +18,13 @@ export default function AppProvider(props) {
         token: localStorage.getItem("token") || ""
     }
 
+    const defaultUser = {
+        user: "Default User"
+    }
+
     const [user, setUser] = useState(initState)
+    const [loggedOutUser, /*setLoggedOutUser*/] = useState(defaultUser)
+    const [errMessage, setErrMessage] = useState("")
     const [allIssues, setAllIssues] = useState([])
     const [userIssues, setUserIssues] = useState([])
     const [allComments, setAllComments] = useState([])
@@ -43,13 +49,14 @@ export default function AppProvider(props) {
                     token
                 }))
             })
-            .catch(error => console.log(error))
+            .catch(error => setErrMessage(error.response.data.errMessage))
     }
 
     function login(credentials) {
         axios.post("/auth/login", credentials)
             .then(response => {
                 const { user, token } = response.data
+                localStorage.removeItem("user")
                 localStorage.setItem("token", token)
                 localStorage.setItem("user", JSON.stringify(user))
                 getAllIssues()
@@ -62,7 +69,7 @@ export default function AppProvider(props) {
                     token
                 }))
             })
-            .catch(error => console.log(error))
+            .catch(error => setErrMessage(error.response.data.errMessage))
     }
 
     function logout() {
@@ -72,6 +79,11 @@ export default function AppProvider(props) {
             user: {},
             token: ""
         })
+        localStorage.setItem("user", JSON.stringify(loggedOutUser))
+    }
+
+    function resetErrMessage() {
+        setErrMessage("")
     }
 
     function getAllIssues() {
@@ -174,6 +186,7 @@ export default function AppProvider(props) {
         <AppContext.Provider
             value={{
                 ...user,
+                errMessage,
                 allIssues,
                 userIssues,
                 allComments,
@@ -181,6 +194,7 @@ export default function AppProvider(props) {
                 signUp,
                 login,
                 logout,
+                resetErrMessage,
                 postIssue,
                 updateIssue,
                 upvoteIssue,

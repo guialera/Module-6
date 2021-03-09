@@ -10,11 +10,12 @@ function Auth(props) {
     const [newUser, setNewUser] = useState(true)
     const [input, setInput] = useState(emptyForm)
 
-    const { signUp, login } = useContext(AppContext)
+    const { signUp, login, errMessage, resetErrMessage } = useContext(AppContext)
 
     function change(event) {
         event.preventDefault()
         setNewUser(prevNewUser => !prevNewUser)
+        resetErrMessage()
     }
 
     function fillIn(event) {
@@ -26,11 +27,13 @@ function Auth(props) {
     function signUpForm(event) {
         event.preventDefault()
         signUp(input)
+        resetErrMessage()
     }
 
     function loginForm(event) {
         event.preventDefault()
         login(input)
+        resetErrMessage()
     }
 
     return (
@@ -56,6 +59,7 @@ function Auth(props) {
                     />
                     <br />
                     <button>Submit</button>
+                    <p style={{ color: "red" }}>{errMessage}</p>
                 </form>
             </div>
 
@@ -78,6 +82,7 @@ function Auth(props) {
                     />
                     <br />
                     <button>Submit</button>
+                    <p style={{ color: "red" }}>{errMessage}</p>
                 </form>
             </div>
 
