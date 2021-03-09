@@ -30,6 +30,19 @@ button{
     margin-bottom: 2px;
 }
 
+.authPageHeader{
+    text-align: center;
+}
+
+.authForm{
+    text-align: center;
+}
+
+.authFormBtn{
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .issuesForm{
     text-align: center;
 }

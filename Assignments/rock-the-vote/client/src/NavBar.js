@@ -10,7 +10,7 @@ function NavBar() {
                 <Link className="appLinkText" to="/">Login</Link>
                 <Link className="appLinkText" to="userprofile">User Profile</Link>
                 <Link className="appLinkText" to="main">Main Page</Link>
-                <button onClick={logout}>Log Out</button>
+                <Link className="appLinkText" to="/"><button onClick={logout}>Log Out</button></Link>
             </nav>
         </div>
     )

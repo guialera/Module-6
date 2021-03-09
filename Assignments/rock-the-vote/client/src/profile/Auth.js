@@ -23,19 +23,21 @@ function Auth(props) {
         console.log(input)
     }
 
-    function signUpForm(event){
+    function signUpForm(event) {
         event.preventDefault()
         signUp(input)
     }
 
-    function loginForm(event){
+    function loginForm(event) {
         event.preventDefault()
         login(input)
     }
 
     return (
         <div>
-            <div style={{ display: newUser ? "block" : "none" }}>
+            <h1>Politcal Issues</h1>
+            <h2 className="authPageHeader">Share Your Political Issues!</h2>
+            <div className="authForm" style={{ display: newUser ? "block" : "none" }}>
                 <form onSubmit={signUpForm}>
                     <input
                         type="text"
@@ -44,6 +46,7 @@ function Auth(props) {
                         value={input.username}
                         onChange={fillIn}
                     />
+                    <br />
                     <input
                         type="text"
                         name="password"
@@ -51,11 +54,12 @@ function Auth(props) {
                         value={input.password}
                         onChange={fillIn}
                     />
+                    <br />
                     <button>Submit</button>
                 </form>
             </div>
 
-            <div style={{ display: newUser ? "none" : "block" }}>
+            <div className="authForm" style={{ display: newUser ? "none" : "block" }}>
                 <form onSubmit={loginForm}>
                     <input
                         type="text"
@@ -64,6 +68,7 @@ function Auth(props) {
                         value={input.username}
                         onChange={fillIn}
                     />
+                    <br />
                     <input
                         type="text"
                         name="password"
@@ -71,12 +76,13 @@ function Auth(props) {
                         value={input.password}
                         onChange={fillIn}
                     />
+                    <br />
                     <button>Submit</button>
                 </form>
             </div>
 
-            <button style={{ display: newUser ? "block" : "none" }} onClick={change}>Login</button>
-            <button style={{ display: newUser ? "none" : "block" }} onClick={change}>Sign Up</button>
+            <button className="authFormBtn" style={{ display: newUser ? "block" : "none" }} onClick={change}>Click To Login</button>
+            <button className="authFormBtn" style={{ display: newUser ? "none" : "block" }} onClick={change}>Click To Sign Up</button>
         </div>
     )
 }
