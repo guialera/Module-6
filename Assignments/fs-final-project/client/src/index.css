@@ -1,0 +1,65 @@
+body{
+    background-color: azure;
+    margin: 0
+}
+
+nav{
+    background-color: aquamarine;
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 20px;
+}
+
+h1{
+    text-align: center;
+}
+
+hr{
+    height: 2px;
+    background-color: black;
+    border: none;
+    margin-top: 0
+}
+
+.appLinkText{
+    color: black;
+    font-size: 25px;
+    font-weight:500;
+    text-decoration: none;
+    text-transform: none;
+}
+
+.yearHeader{
+    font-size: 40px;
+}
+
+.statesContainer{
+    display: flex;
+    flex-direction: row;
+    flex-flow: wrap;
+    justify-content: center;
+}
+
+.state{
+    border-color: black;
+    border-style: solid;
+    flex-wrap: wrap;
+    background-color: peachpuff;
+    font-size: 20px;
+    text-align: center;
+    width: 300px;
+    height: auto;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 6px;
+    margin-bottom: 6px
+
+}
+
+.stateHeader{
+    background-color: aqua;
+    margin-top: 0;
+    margin-bottom: 0;
+}
