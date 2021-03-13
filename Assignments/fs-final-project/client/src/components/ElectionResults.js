@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react"
 import { AppContext } from "../context/appContext.js"
+import FilterForm from "../components/FilterForm.js"
 import StateResults from "../components/StateResults.js"
 
 function ElectionResults(props) {
@@ -16,10 +17,16 @@ function ElectionResults(props) {
         setResultsByYear(electionResultsYear)
     }
 
+    function filterElectionResults(value){
+        setYear(value)
+        getElectionResultsByYear(value)
+    }
+
     let singleStateResults = electionResultsYear.map(each => <StateResults {...each} key={each._id} />)
 
     return (
         <div>
+            <FilterForm filter={filterElectionResults}/>
             <h1 className="yearHeader">{`${year} General Election`}</h1>
             <div className="statesContainer">
                 {singleStateResults}
