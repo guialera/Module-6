@@ -4,29 +4,38 @@ import FilterForm from "../components/FilterForm.js"
 import StateResults from "../components/StateResults.js"
 
 function ElectionResults(props) {
+
+    let initPartyWon = {
+        demWon: false,
+        gopWon: false
+    }
+
     const { getElectionResultsByYear, electionResultsYear } = useContext(AppContext)
-    const [resultsByYear, setResultsByYear] = useState([])
+    const [results, setResults] = useState()
     const [year, setYear] = useState(2020)
+    const [partyWon, setPartyWon] = useState(initPartyWon)
 
     React.useEffect(() => {
-        initElectionResults()
         getElectionResultsByYear(year)
     }, [])
 
-    function initElectionResults() {
-        setResultsByYear(electionResultsYear)
+    function filterResultsByPartyWon(value) {
+        value === "dem" ? setPartyWon(({ demWon: true, gopWon: false })) : setPartyWon({ demWon: false, gopWon: true })
+        let allResults = electionResultsYear
+        let filtered = partyWon.demWon ? allResults.filter(each => each.demWon === false) : allResults.filter(each => each.gopWon === false); setResults(filtered)
     }
 
-    function filterElectionResults(value){
+    function filterElectionResults(value) {
         setYear(value)
+        setResults()
         getElectionResultsByYear(value)
     }
 
-    let singleStateResults = electionResultsYear.map(each => <StateResults {...each} key={each._id} />)
+    let singleStateResults = typeof (results) === "undefined" ? electionResultsYear.map(each => <StateResults {...each} key={each._id} />) : results.map(each => <StateResults {...each} key={each._id} />)
 
     return (
         <div>
-            <FilterForm filter={filterElectionResults}/>
+            <FilterForm filterByYear={filterElectionResults} filterByParty={filterResultsByPartyWon} />
             <h1 className="yearHeader">{`${year} General Election`}</h1>
             <div className="statesContainer">
                 {singleStateResults}

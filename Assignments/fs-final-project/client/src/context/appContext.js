@@ -28,6 +28,7 @@ export default function AppProvider(props) {
     const [electionResultsYear, setElectionResultsYear] = useState([])
 
     React.useEffect(() => {
+        getElectionResultsByYear(2020)
     }, [])
 
     function signUp(credentials) {
@@ -36,6 +37,7 @@ export default function AppProvider(props) {
                 const { user, token } = response.data
                 localStorage.setItem("token", token)
                 localStorage.setItem("user", JSON.stringify(user))
+                getElectionResultsByYear(2020)
                 setUser(prevUser => ({
                     ...prevUser,
                     user,
@@ -52,6 +54,7 @@ export default function AppProvider(props) {
                 localStorage.removeItem("user")
                 localStorage.setItem("token", token)
                 localStorage.setItem("user", JSON.stringify(user))
+                getElectionResultsByYear(2020)
                 setUser(prevUser => ({
                     ...prevUser,
                     user,
