@@ -39,4 +39,21 @@ resultsRoute.post("/", (req, res, next) => {
     })
 })
 
+//Update Result
+
+resultsRoute.put("/:resultId", (req, res, next) => {
+    ElectionResults.findOneAndUpdate(
+        { _id: req.params.resultId },
+        req.body,
+        { new: true },
+        (err, updatedResult) => {
+            if (err) {
+                res.status(500)
+                next(err)
+            }
+            return res.status(200).send(updatedResult)
+        }
+    )
+})
+
 module.exports = resultsRoute
