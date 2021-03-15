@@ -11,6 +11,7 @@ function ElectionResults(props) {
     const { getElectionResultsByYear, electionResultsYear } = useContext(AppContext)
     const [results, setResults] = useState()
     const [year, setYear] = useState(2020)
+    const [party, setParty] = useState("")
     const [viewStateSearch, setViewStateSearch] = useState(false)
     const [stateSearch, setStateSearch] = useState([])
     //const [partyWon, setPartyWon] = useState(initPartyWon)
@@ -26,6 +27,8 @@ function ElectionResults(props) {
         let filtered = value === "dem" ? allResults.filter(each => each.demWon === true) : allResults.filter(each => each.gopWon === true); setResults(filtered)
 
         let stateFiltered = typeof (stateSearch) === "undefined" ? console.log("Undefined") : value === "dem" ? stateSearch.filter(each => each.demWon === true) : stateSearch.filter(each => each.gopWon === true); setStateSearch(stateFiltered)
+
+        value === "dem" ? setParty("Democrat States") : setParty("Republican States")
     }
 
     function filterResultsByState(value) {
@@ -39,10 +42,15 @@ function ElectionResults(props) {
         setStateSearch([])
         setViewStateSearch(false)
         getElectionResultsByYear(value)
+        setParty("")
     }
 
     function viewToggle() {
         setViewStateSearch(prevViewStateSearch => !prevViewStateSearch)
+        viewStateSearch ? setStateSearch([]) : console.log("False")
+        setResults()
+        getElectionResultsByYear(year)
+        setParty("")
     }
 
     let singleStateResults = typeof (results) === "undefined" ? electionResultsYear.map(each => <StateResults {...each} key={each._id} />) : results.map(each => <StateResults {...each} key={each._id} />)
@@ -58,6 +66,8 @@ function ElectionResults(props) {
                 <div className="singleStateFormContainer">
                     {singleStateForm}
                 </div>
+                <h1 className="yearHeader">{`${year} General Election`}</h1>
+                <h2 className="partyWonHeader">{party}</h2>
                 <div className="statesContainer">
                     {filteredStates}
                 </div>
@@ -68,6 +78,7 @@ function ElectionResults(props) {
             </div>
             <div style={{ display: viewStateSearch ? "none" : "block" }}>
                 <h1 className="yearHeader">{`${year} General Election`}</h1>
+                <h2 className="partyWonHeader">{party}</h2>
                 <div className="statesContainer">
                     {singleStateResults}
                 </div>

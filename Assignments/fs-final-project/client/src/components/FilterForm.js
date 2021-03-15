@@ -4,7 +4,8 @@ function FilterForm(props) {
 
     const { filterByYear, filterByParty } = props
 
-    const [showForm, setShowForm] = useState(false)
+    const [checkDem, setCheckDem] = useState(false)
+    const [checkGop, setCheckGop] = useState(false)
 
     function recordYear(event) {
         const { value } = event.target
@@ -16,13 +17,9 @@ function FilterForm(props) {
         filterByParty(value)
     }
 
-    function showFormSetting() {
-        setShowForm(prevShowForm => !prevShowForm)
-    }
-
     return (
         <div>
-            <div className="filterForm" style={{ display: showForm ? "block" : "none" }}>
+            <div className="filterForm">
                 <form>
                     <input
                         type="radio"
@@ -54,18 +51,17 @@ function FilterForm(props) {
                         type="radio"
                         name="partyWon"
                         value="dem"
+                        checked={checkDem}
                         onChange={recordParty}
                     /> Democrat Wins
                     <input
                         type="radio"
                         name="partyWon"
                         value="gop"
+                        checked={checkGop}
                         onChange={recordParty}
                     /> Republican Wins
             </form>
-            </div>
-            <div className="formToggleButtonDiv">
-                <button onClick={showFormSetting}>Show Filter Form</button>
             </div>
         </div>
     )
