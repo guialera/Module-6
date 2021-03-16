@@ -20,6 +20,10 @@ function ElectionResults(props) {
         getElectionResultsByYear(year)
     }, [])
 
+    electionResultsYear.sort(function (a, b) {
+        return a.state.localeCompare(b.state)
+    })
+
     function filterResultsByPartyWon(value) {
         //value === "dem" ? setPartyWon({ demWon: true, gopWon: false }) : setPartyWon({ demWon: false, gopWon: true })
         let allResults = electionResultsYear
@@ -58,7 +62,7 @@ function ElectionResults(props) {
         postSavedElectionResult(found)
     }
 
-    function getIdAndDelete(id){
+    function getIdAndDelete(id) {
         //let found = electionResultsYear.find(each => each._id === id)
         deleteSavedElectionResult(id)
     }

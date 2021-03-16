@@ -40,6 +40,7 @@ export default function AppProvider(props) {
                 localStorage.setItem("token", token)
                 localStorage.setItem("user", JSON.stringify(user))
                 getElectionResultsByYear(2020)
+                getSavedElectionResultsByUser()
                 setUser(prevUser => ({
                     ...prevUser,
                     user,
@@ -57,6 +58,7 @@ export default function AppProvider(props) {
                 localStorage.setItem("token", token)
                 localStorage.setItem("user", JSON.stringify(user))
                 getElectionResultsByYear(2020)
+                getSavedElectionResultsByUser()
                 setUser(prevUser => ({
                     ...prevUser,
                     user,
@@ -95,7 +97,8 @@ export default function AppProvider(props) {
     }
 
     function postSavedElectionResult(result) {
-        console.log(result)
+        delete result._id
+        //console.log(result)
         userAxios.post("/api/savedResults/save", result)
             .then(response => {
                 setSavedResult(prevSavedResult => ([...prevSavedResult, response.data]))
