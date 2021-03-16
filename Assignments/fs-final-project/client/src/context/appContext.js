@@ -75,6 +75,7 @@ export default function AppProvider(props) {
             user: {},
             token: ""
         })
+        setSavedResult([])
         localStorage.setItem("user", JSON.stringify(loggedOutUser))
     }
 

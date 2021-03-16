@@ -33,11 +33,46 @@ function StateResults(props) {
     } = props
 
     function addCommas() {
-        numberDemResult.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-        numberGopResult.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        /*let newNumberDemResult = Number(numberDemResult).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        let newNumberGopResult = Number(numberGopResult).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 
-        setDemNumber(numberDemResult)
-        setGopNumber(numberGopResult)
+        setDemNumber(newNumberDemResult)
+        setGopNumber(newNumberGopResult)*/
+
+        let newDem = Number(numberDemResult)
+        let newGop = Number(numberGopResult)
+
+        let stringDem = newDem.toString().split("")
+        let stringGop = newGop.toString().split("")
+
+        let demArray = stringDem
+        let gopArray = stringGop
+
+        if (demArray.length === 4 || demArray.length === 5 || demArray.length === 6) {
+            demArray.splice(3, 0, ",")
+        } else if (demArray.length === 7) {
+            demArray.splice(1, 0, ",")
+            demArray.splice(5, 0, ",")
+        } else if (demArray.length === 8) {
+            demArray.splice(2, 0, ",")
+            demArray.splice(6, 0, ",")
+        }
+
+        let joinedDemArray = demArray.join("")
+        setDemNumber(joinedDemArray)
+
+        if (gopArray.length === 4 || gopArray.length === 5 || gopArray.length === 6) {
+            gopArray.splice(3, 0, ",")
+        } else if (gopArray.length === 7) {
+            gopArray.splice(1, 0, ",")
+            gopArray.splice(5, 0, ",")
+        } else if (gopArray[0].length === 8) {
+            gopArray.splice(2, 0, ",")
+            gopArray.splice(6, 0, ",")
+        }
+
+        let joinedGopArray = gopArray.join("")
+        setGopNumber(joinedGopArray)
     }
 
     function sendIdToSave() {

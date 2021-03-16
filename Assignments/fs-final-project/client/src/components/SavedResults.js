@@ -6,7 +6,7 @@ function SavedResults(props) {
 
     const { savedResult, postSavedElectionResult, deleteSavedElectionResult } = useContext(AppContext)
 
-    console.log(savedResult)
+    //console.log(savedResult)
 
     savedResult.sort(function (a, b) {
         return a.state.localeCompare(b.state)
