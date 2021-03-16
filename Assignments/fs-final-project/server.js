@@ -20,6 +20,8 @@ app.use(morgan("dev"))
 
 app.use("/api", expressJwt({ secret: process.env.SECRET, algorithms: ["HS256"] }))
 app.use("/auth", require("./routes/authRoute.js"))
+app.use("/api/user", require("./routes/userRoute.js"))
+app.use("/api/savedResults", require("./routes/savedResultsRoute.js"))
 app.use("/api/results", require("./routes/resultsRoute.js"))
 
 app.use((err, req, res, next) => {

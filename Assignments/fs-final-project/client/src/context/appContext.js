@@ -26,9 +26,11 @@ export default function AppProvider(props) {
     const [loggedOutUser, /*setLoggedOutUser*/] = useState(defaultUser)
     const [errMessage, setErrMessage] = useState("")
     const [electionResultsYear, setElectionResultsYear] = useState([])
+    const [savedResult, setSavedResult] = useState([])
 
     React.useEffect(() => {
         getElectionResultsByYear(2020)
+        getSavedElectionResultsByUser()
     }, [])
 
     function signUp(credentials) {
@@ -86,17 +88,43 @@ export default function AppProvider(props) {
             .catch(error => console.log(error))
     }
 
+    function getSavedElectionResultsByUser() {
+        userAxios.get("/api/savedResults/user")
+            .then(response => setSavedResult(response.data))
+            .catch(error => console.log(error))
+    }
+
+    function postSavedElectionResult(result) {
+        console.log(result)
+        userAxios.post("/api/savedResults/save", result)
+            .then(response => {
+                setSavedResult(prevSavedResult => ([...prevSavedResult, response.data]))
+            })
+            .catch(error => console.log(error))
+    }
+
+    function deleteSavedElectionResult(id) {
+        userAxios.delete(`/api/savedResults/delete/${id}`)
+            .then(response => {
+                getSavedElectionResultsByUser()
+            })
+            .catch(error => console.log(error))
+    }
+
     return (
         <AppContext.Provider
             value={{
                 ...user,
                 errMessage,
                 electionResultsYear,
+                savedResult,
                 signUp,
                 login,
                 logout,
                 resetErrMessage,
-                getElectionResultsByYear
+                getElectionResultsByYear,
+                postSavedElectionResult,
+                deleteSavedElectionResult,
             }}>
             {props.children}
         </AppContext.Provider>

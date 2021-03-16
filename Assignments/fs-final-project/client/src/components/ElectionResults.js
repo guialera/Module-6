@@ -8,7 +8,7 @@ function ElectionResults(props) {
 
     //let initPartyWon = { demWon: false, gopWon: false }
 
-    const { getElectionResultsByYear, electionResultsYear } = useContext(AppContext)
+    const { getElectionResultsByYear, electionResultsYear, postSavedElectionResult, deleteSavedElectionResult } = useContext(AppContext)
     const [results, setResults] = useState()
     const [year, setYear] = useState(2020)
     const [party, setParty] = useState("")
@@ -53,11 +53,21 @@ function ElectionResults(props) {
         setParty("")
     }
 
-    let singleStateResults = typeof (results) === "undefined" ? electionResultsYear.map(each => <StateResults {...each} key={each._id} />) : results.map(each => <StateResults {...each} key={each._id} />)
+    function getIdAndFindResult(id) {
+        let found = electionResultsYear.find(each => each._id === id)
+        postSavedElectionResult(found)
+    }
+
+    function getIdAndDelete(id){
+        //let found = electionResultsYear.find(each => each._id === id)
+        deleteSavedElectionResult(id)
+    }
+
+    let singleStateResults = typeof (results) === "undefined" ? electionResultsYear.map(each => <StateResults {...each} getId={getIdAndFindResult} getIdDelete={getIdAndDelete} key={each._id} />) : results.map(each => <StateResults {...each} getId={getIdAndFindResult} getIdDelete={getIdAndDelete} key={each._id} />)
 
     let singleStateForm = typeof (results) === "undefined" ? electionResultsYear.map(each => <StateFilterForm {...each} key={each._id} stateFilter={filterResultsByState} />) : results.map(each => <StateFilterForm {...each} key={each._id} stateFilter={filterResultsByState} />)
 
-    let filteredStates = typeof (stateSearch) === "undefined" ? console.log("Undefined") : stateSearch.map(each => <StateResults {...each} key={each._id} />)
+    let filteredStates = typeof (stateSearch) === "undefined" ? console.log("Undefined") : stateSearch.map(each => <StateResults {...each} getId={getIdAndFindResult} getIdDelete={getIdAndDelete} key={each._id} />)
 
     return (
         <div>
