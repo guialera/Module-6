@@ -50,9 +50,23 @@ input{
 }
 
 .filterForm{
+    background-color: fuchsia;
     font-size: 20px;
     text-align: center;
     margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.generalElectionYear{
+    display: flex;
+    flex-direction: row;
+    flex-flow: wrap;
+    justify-content: center;
+}
+
+.yearInput {
+    flex-wrap: wrap;
+    
 }
 
 .formToggleButtonDiv{
@@ -66,10 +80,12 @@ input{
     flex-direction: row;
     flex-flow: wrap;
     justify-content: center;
+    margin-top: 15px;
 }
 
 .stateForm{
     flex-wrap: wrap;
+    flex: 0 0 25%;
     font-size: 20px;
 }
 
@@ -109,4 +125,92 @@ input{
     background-color: aqua;
     margin-top: 0;
     margin-bottom: 0;
+}
+
+@media (max-width: 1200px){
+    .stateForm{
+        flex: 0 0 25%;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 1000px){
+    .generalElectionYear{
+        display: flex;
+        flex-direction: row;
+        flex-flow: wrap;
+        justify-content: center;
+    }
+
+    .yearInput {
+        flex-wrap: wrap;
+        flex: 0 0 50%;
+    }
+}
+
+@media (max-width: 775px){
+    .appLinkText{
+        font-size: 20px;
+    }
+
+    .stateForm{
+        flex: 0 0 33.3333%;
+        font-size: 15px;
+    }
+
+    .yearHeader{
+        font-size: 34px;
+    }
+}
+
+@media (max-width: 500px){
+    .appLinkText{
+        font-size: 13px;
+    }
+
+    .filterForm{
+        font-size: 15px;
+    }
+
+    .stateForm{
+        flex: 0 0 33.3333%;
+        font-size: 15px;
+    }
+
+    .state{
+        font-size: 15px;
+        width: 250px;
+    }
+
+    .stateHeader{
+        font-size: 25px;
+    }
+}
+
+@media (max-width: 400px){
+    .appLinkText{
+        font-size: 12px;
+    }
+
+    .filterForm{
+        font-size: 13px;
+    }
+    
+    .stateForm{
+        flex: 0 0 33.3333%;
+        font-size: 11px;
+    }
+
+    .yearHeader{
+        font-size: 25px;
+    }
+
+    .state{
+        font-size: 15px;
+        width: 250px;
+    }
+
+    .stateHeader{
+        font-size: 25px;
+    }
 }

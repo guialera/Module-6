@@ -20,32 +20,40 @@ function FilterForm(props) {
     return (
         <div>
             <div className="filterForm">
-                <form>
-                    <input
-                        type="radio"
-                        name="year"
-                        value={2020}
-                        onChange={recordYear}
-                    /> 2020 General Election
-                    <input
-                        type="radio"
-                        name="year"
-                        value={2016}
-                        onChange={recordYear}
-                    /> 2016 General Election
-                    <input
-                        type="radio"
-                        name="year"
-                        value={2012}
-                        onChange={recordYear}
-                    /> 2012 General Election
-                    <input
-                        type="radio"
-                        name="year"
-                        value={2008}
-                        onChange={recordYear}
-                    /> 2008 General Election
-            </form>
+                <form className="generalElectionYear">
+                    <div className="yearInput">
+                        <input
+                            type="radio"
+                            name="year"
+                            value={2020}
+                            onChange={recordYear}
+                        /> 2020 General Election
+                    </div>
+                    <div className="yearInput">
+                        <input
+                            type="radio"
+                            name="year"
+                            value={2016}
+                            onChange={recordYear}
+                        /> 2016 General Election
+                    </div>
+                    <div className="yearInput">
+                        <input
+                            type="radio"
+                            name="year"
+                            value={2012}
+                            onChange={recordYear}
+                        /> 2012 General Election
+                    </div>
+                    <div className="yearInput">
+                        <input
+                            type="radio"
+                            name="year"
+                            value={2008}
+                            onChange={recordYear}
+                        /> 2008 General Election
+                    </div>
+                </form>
                 <form>
                     <input
                         type="radio"

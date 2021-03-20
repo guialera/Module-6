@@ -38,8 +38,7 @@ function Auth(props) {
 
     return (
         <div>
-            <h1>Politcal Issues</h1>
-            <h2 className="authPageHeader">General Election Results</h2>
+            <h1 className="authPageHeader">General Election Results</h1>
             <div className="authForm" style={{ display: newUser ? "block" : "none" }}>
                 <form onSubmit={signUpForm}>
                     <input
