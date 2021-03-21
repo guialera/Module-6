@@ -48,7 +48,11 @@ function StateResults(props) {
         let demArray = stringDem
         let gopArray = stringGop
 
-        if (demArray.length === 4 || demArray.length === 5 || demArray.length === 6) {
+        if (demArray.length === 4) {
+            demArray.splice(1, 0, ",")
+        } else if (demArray.length === 5) {
+            demArray.splice(2, 0, ",")
+        } else if (demArray.length === 6) {
             demArray.splice(3, 0, ",")
         } else if (demArray.length === 7) {
             demArray.splice(1, 0, ",")
@@ -61,7 +65,11 @@ function StateResults(props) {
         let joinedDemArray = demArray.join("")
         setDemNumber(joinedDemArray)
 
-        if (gopArray.length === 4 || gopArray.length === 5 || gopArray.length === 6) {
+        if (gopArray.length === 4) {
+            gopArray.splice(1, 0, ",")
+        } else if (gopArray.length === 5) {
+            gopArray.splice(2, 0, ",")
+        } else if (gopArray.length === 6) {
             gopArray.splice(3, 0, ",")
         } else if (gopArray.length === 7) {
             gopArray.splice(1, 0, ",")
