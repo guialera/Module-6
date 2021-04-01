@@ -14,16 +14,11 @@ userAxios.interceptors.request.use(config => {
 export default function AppProvider(props) {
 
     const initState = {
-        user: JSON.parse(localStorage.getItem("user") || {}),
+        user: JSON.parse(localStorage.getItem("user")) || {},
         token: localStorage.getItem("token") || ""
     }
 
-    const defaultUser = {
-        user: "Default User"
-    }
-
     const [user, setUser] = useState(initState)
-    const [loggedOutUser, /*setLoggedOutUser*/] = useState(defaultUser)
     const [errMessage, setErrMessage] = useState("")
     const [allIssues, setAllIssues] = useState([])
     const [userIssues, setUserIssues] = useState([])
@@ -79,7 +74,6 @@ export default function AppProvider(props) {
             user: {},
             token: ""
         })
-        localStorage.setItem("user", JSON.stringify(loggedOutUser))
     }
 
     function resetErrMessage() {
